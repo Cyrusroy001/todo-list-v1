@@ -1,36 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>To Do List</title>
-  </head>
+<%- include("header") -%>
 
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" type="image/x-icon" href="images/favicon.png" />
-  <body>
-    <div class="box" id="heading">
-      <h1><%= listTitle %></h1>
-    </div>
+<div class="box" id="heading">
+  <h1><%= listTitle %></h1>
+</div>
 
-    <div class="box">
-      <% for(var i = 0; i < newItems.length; i++){ %>
-      <div class="item">
-        <input type="checkbox" />
-        <p><%= newItems[i] %></p>
-      </div>
-      <% } %>
+<div class="box">
+  <% for(var i = 0; i < newItems.length; i++){ %>
+  <div class="item">
+    <input type="checkbox" />
+    <p><%= newItems[i] %></p>
+  </div>
+  <% } %>
+  <form class="item" action="/" method="post">
+    <input
+      type="text"
+      name="newItem"
+      placeholder="New Item"
+      autocomplete="off"
+    />
+    <button type="submit" name="list" value=<% listTitle %>>+</button>
+  </form>
+</div>
 
-      <form class="item" action="/" method="post">
-        <input
-          type="text"
-          name="newItem"
-          placeholder="New Item"
-          autocomplete="off"
-        />
-        <button type="submit" name="list" value=<%= listTitle %> >+</button>
-      </form>
-    </div>
-  </body>
-
-  <footer>Made with ❤️ in Kathmandu.</footer>
-</html>
+<%- include("footer") -%>
