@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 
 const app = express();
 let items = [];
+let workItems = [];
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -20,15 +21,28 @@ app.get("/", function (req, res) {
 
     // rendering the template ejs file
     res.render("list", {
-        kindOfDay: day,
-        newItems: items
+        listTitle: day,
+        newItems: items,
     });
 });
 
 app.post("/", function (req, res) {
     let item = req.body.newItem;
-    items.push(item);
-    res.redirect("/");
+    if (req.body.list === "Work") {
+        workItems.push(item);
+        res.redirect("/work");
+    } else {
+        items.push(item);
+        res.redirect("/");
+    }
+});
+
+// using the ejs template to create a new work list
+app.get("/work", function (req, res) {
+    res.render("list", {
+        listTitle: "Work List",
+        newItems: workItems,
+    });
 });
 
 app.listen(3000, function () {
